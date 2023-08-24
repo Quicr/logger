@@ -246,8 +246,8 @@ namespace
         // Set the log level to debugging
         logger->SetLogLevel(LogLevel::Debug);
 
-        // Have logging use microseconds
-        logger->SetTimePrecision(LogTimePrecision::Microseconds);
+        // Have logging use milliseconds
+        logger->SetTimePrecision(LogTimePrecision::Milliseconds);
 
         // Verify the log level is set
         ASSERT_TRUE(logger->IsDebugging());
