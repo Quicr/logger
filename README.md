@@ -1,7 +1,7 @@
 # Logger
 
 The `Logger` object facilitates emitting logging output from the application
-to any number of logging syncs, including the console, file, or syslog.
+to any number of logging sinks, including the console, file, or syslog.
 
 ## Logger Usage
 
