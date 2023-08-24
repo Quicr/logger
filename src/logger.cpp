@@ -30,6 +30,7 @@
 #include <time.h>
 #include <ctime>
 #include "cantina/logger.h"
+#include "cantina/ansi.h"
 
 namespace cantina
 {

@@ -80,7 +80,6 @@
 #include <condition_variable>
 #include <functional>
 #include <fstream>
-#include "ansi.h"
 #include "syslog_interface.h"
 #include "logger_macros.h"
 
