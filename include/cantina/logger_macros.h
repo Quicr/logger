@@ -7,14 +7,14 @@
  *
  *  Description:
  *      The purpose for this file is to define macros that may be used to
- *      invoke the logger.  A benefit of using these macros is that if one
+ *      invoke the Logger.  A benefit of using these macros is that if one
  *      wishes to "compile out" logging messages below a certain log level
  *      (e.g., to "compile out" debug messages), one merely needs to define
  *      LOGGER_LEVEL to be equal to the desired log level
  *      (e.g., LOGGER_LEVEL=LOGGER_LEVEL_DEBUG).
  *
  *      Concretely, if one wishes to "compile out" only debug messages, use the
- *      below macros for all logger calls and define
+ *      below macros for all Logger calls and define
  *      LOGGER_LEVEL=LOGGER_LEVEL_INFO.
  *
  *      This is an example of how one would use these macros:
@@ -23,8 +23,8 @@
  *
  *          LOGGER_DEBUG(&logger, "This is a debug message");
  *
- *      Note that the address of the logger object is provided as the first
- *      parameter.  If the logger object is a shared pointer, then passing
+ *      Note that the address of the Logger object is provided as the first
+ *      parameter.  If the Logger object is a shared pointer, then passing
  *      the address would not be necessary.  For shared pointers, usage would
  *      look like this:
  *
@@ -34,7 +34,7 @@
  *
  *      If LOGGER_LEVEL is not defined, LOGGER_LEVEL_DEBUG is assumed.
  *
- *      The LOGGER_X() macros utilize the logger's streaming interfaces, so
+ *      The LOGGER_X() macros utilize the Logger's streaming interfaces, so
  *      syntax like this is allowed:
  *
  *          LOGGER_DEBUG(logger, "ID: " << id << ", Length: " << length)

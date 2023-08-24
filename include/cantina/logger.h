@@ -29,6 +29,23 @@
  *      about which functional component in the software created the logging
  *      messages.
  *
+ *      Given this parent/child relationship, suppose a Logger object is
+ *      created in main() and that pointer is passed to an object called Foo
+ *      that creates a child logger.  Suppose Foo then passes its logger to a
+ *      child object called Bar that also creates a child logger.  Each of
+ *      these objects will provide a "component name" as a parameter when
+ *      creating its logger.  The resulting output will be something like this:
+ *
+ *      2023-08-24T14:38:05.824097 [INFO] [Foo] [Bar] Message from object Bar
+ *
+ *      Use of the parent/child construct is optional, though it does help
+ *      address issues with multiple threads emitting logging output at the
+ *      same time and provides the extra benefit of seeing component names in
+ *      the logging output.
+ *
+ *      The LogLevel parameter indicates the severity of the log.  Those may be
+ *      Critical, Error, Warning, Info, or Debug.
+ *
  *      The LogLevel parameter indicates the severity of the log.
  *
  *      The logging facility indicates where logs are to be created.  At
@@ -41,11 +58,11 @@
  *      creating logs simultaneously, the Log() function will lock a shared
  *      a mutex.
  *
- *              logger.info << "Log message" << std::flush;
- *              logger.debug << "This is a debug message" << std::flush;
+ *              logger->info << "Log message" << std::flush;
+ *              logger->debug << "This is a debug message" << std::flush;
  *
  *      Note the used of "std::flush".  This is required in order to signal
- *      to the logger that a complete message has been constructed.  Users
+ *      to the Logger that a complete message has been constructed.  Users
  *      should not use std::endl, as that will result in unwanted linefeed
  *      characters in logging output.
  *
@@ -53,17 +70,25 @@
  *      result in logs being output in a timely manner, but will also cause
  *      other threads waiting to output log entries to be blocked.
  *
- *      If you are using Cantina modules as components in an existing project
- *      that already has logging facilities and want to continue using those
+ *      If you are this Logger as components in an existing project that
+ *      already has logging facilities and want to continue using those
  *      existing facilities, or if you wish to capture the logging output and
  *      direct it to a logging facility not supported by the Logger class,
  *      simply create a class derived from Logger and override the EmitLog()
  *      function.  The EmitLog() function will receive the message to log
  *      without the prefixed timestamp.  You should use your derived class
- *      as the "parent" logger, setting the logging facility to "Console".
+ *      as the "parent" Logger, setting the logging facility to "Console".
  *      To simplify this process, you may use the CustomLogger class defined
  *      below, passing a lambda function to invoke as each message to be logged
  *      is received.  See the test "test_custom_logger" for example usage.
+ *
+ *      By default, the Logger will use color if it detects that the output
+ *      device may support color.  This may be disabled by calling the
+ *      the Colorize() function.
+ *
+ *      The timestamps produced by the Logger use microseconds by default.
+ *      One may change this to milliseconds by calling the SetTimePrecision()
+ *      function.
  *
  *  Portability Issues:
  *      None.
