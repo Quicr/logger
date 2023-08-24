@@ -182,8 +182,8 @@ Logger::Logger(const std::string &process_name,
     console_buf(this, LogLevel::Info, true),
     output_to_console(output_to_console),
     colorize(parent_logger ? parent_logger->IsColorized() : IsColorPossible()),
-    time_digits(3),
-    time_modulo(1'000),
+    time_digits(6),
+    time_modulo(1'000'000),
     info(&info_buf),
     warning(&warning_buf),
     error(&error_buf),
@@ -728,9 +728,9 @@ bool Logger::IsColorized() const
  *  Logger::SetTimePrecision
  *
  *  Description:
- *      By default, the Logger produces timestamps using millisecond-level
+ *      By default, the Logger produces timestamps using microsecond-level
  *      precision.  One may use this function to change that precision to
- *      microseconds.
+ *      milliseconds.
  *
  *  Parameters:
  *      precision [in]
@@ -746,17 +746,17 @@ void Logger::SetTimePrecision(LogTimePrecision precision)
 {
     switch (precision)
     {
-        case LogTimePrecision::Microseconds:
-            time_digits = 6;
-            time_modulo = 1'000'000;
+        case LogTimePrecision::Milliseconds:
+            time_digits = 3;
+            time_modulo = 1'000;
             break;
 
-        case LogTimePrecision::Milliseconds:
+        case LogTimePrecision::Microseconds:
             [[fallthrough]];
 
         default:
-            time_digits = 3;
-            time_modulo = 1'000;
+            time_digits = 6;
+            time_modulo = 1'000'000;
             break;
     }
 }
