@@ -26,6 +26,6 @@ if(logger_INSTALL)
     install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ TYPE INCLUDE)
     install(EXPORT loggerTargets
             FILE loggerTargets.cmake
-            NAMESPACE LOGGER::
+            NAMESPACE cantina::
             DESTINATION lib/cmake/logger/)
 endif()
