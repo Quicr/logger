@@ -23,6 +23,9 @@
 #include <stdlib.h>
 #include <strings.h>
 #endif
+#ifdef LOGGER_SYSLOG_ENABLED
+#include <syslog.h>
+#endif
 #include <stdio.h>
 #include <iostream>
 #include <iomanip>
@@ -462,8 +465,9 @@ void Logger::SetLogFacility(LogFacility facility, std::string filename)
         // Open syslog if appropriate
         if (facility == LogFacility::Syslog)
         {
-#ifdef _WIN32
-            error << "Syslog not supported on Windows" << std::flush;
+#ifndef LOGGER_SYSLOG_ENABLED
+            error << "Syslog is not supported on this platform" << std::flush;
+            return;
 #else
             openlog(process_name.c_str(),
                     LOG_PID,
@@ -826,7 +830,7 @@ std::ostream &Logger::GetLoggingStream(LogLevel level)
  */
 int Logger::MapLogLevelToSysLog(LogLevel level) const
 {
-#ifdef _WIN32
+#ifndef LOGGER_SYSLOG_ENABLED
     return 0;
 #else
     int priority;

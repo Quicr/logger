@@ -1,13 +1,13 @@
 #include <atomic>
 #include <iostream>
 #include <cstdio>
-#include "cantina/logger.h"
-#include "gtest/gtest.h"
 
 // Ensure that all logging levels are being logged here
 #undef LOGGER_LEVEL
 #define LOGGER_LEVEL LOGGER_LEVEL_DEBUG
-#include "cantina/logger_macros.h"
+
+#include "cantina/logger.h"
+#include "gtest/gtest.h"
 
 namespace
 {

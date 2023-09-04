@@ -1,4 +1,4 @@
-add_library(logger ansi.cpp logger.cpp)
+add_library(logger ansi.cpp logger.cpp syslog_interface.cpp)
 add_library(cantina::logger ALIAS logger)
 
 set_target_properties(logger
@@ -7,9 +7,11 @@ set_target_properties(logger
         CXX_STANDARD_REQUIRED YES
         CXX_EXTENSIONS NO
         PREFIX "libcantina_")
-target_compile_options(logger PRIVATE
-     $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>: -Wpedantic -Wextra -Wall>
-     $<$<CXX_COMPILER_ID:MSVC>: >)
+
+target_compile_options(logger
+    PRIVATE
+        $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>: -Wpedantic -Wextra -Wall>
+        $<$<CXX_COMPILER_ID:MSVC>: >)
 
 # Specify the internal and public include directories
 target_include_directories(logger
@@ -18,6 +20,11 @@ target_include_directories(logger
     PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>)
+
+# Is syslog enabled?
+if(logger_ENABLE_SYSLOG)
+    target_compile_definitions(logger PRIVATE LOGGER_SYSLOG_ENABLED=1)
+endif()
 
 # Install target and associated include files
 if(logger_INSTALL)
