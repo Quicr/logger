@@ -10,8 +10,15 @@ endif()
 # Option to control library installation
 option(logger_INSTALL "Install the Logger Library" ON)
 
+# Option to enable syslog support (on by default, except for WIN32)
+if(NOT WIN32)
+    option(logger_ENABLE_SYSLOG "Enable Logger's Syslog Support" ON)
+else()
+    option(logger_ENABLE_SYSLOG "Enable Logger's Syslog Support" OFF)
+endif()
+
 project(logger
-        VERSION 1.0.0.0
+        VERSION 1.1.0.0
         DESCRIPTION "Logger Library for C++ Projects"
         LANGUAGES CXX)
 

@@ -129,3 +129,14 @@ LOGGER_DEBUG(logger, "ID: " << id << ", Length: " << length)
 
 Note that `std::flush` is appended, so there is no need to explicitly
 attempt to flush the output stream when using these macros.
+
+## Enabling or Disabling Logger Options
+
+When using Logger in your software, you may disable options exposed in the
+top-level CMakeLists.txt file.  For example, to disable the syslog interface
+for platforms that do not support syslog, set this option in your CMakeLists.txt
+file before adding the Logger directory, FetchContent, etc.
+
+```CMake
+set(logger_ENABLE_SYSLOG OFF CACHE BOOL "Enable Logger's Syslog Support")
+```
