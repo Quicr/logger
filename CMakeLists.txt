@@ -8,11 +8,11 @@ else()
 endif()
 
 # Option to control library installation
-option(logger_INSTALL "Install the Logger Library" ON)
+option(logger_INSTALL "Install the Logger Library" OFF)
 
 # Option to enable syslog support (on by default, except for WIN32)
 if(NOT WIN32)
-    option(logger_ENABLE_SYSLOG "Enable Logger's Syslog Support" ON)
+    option(logger_ENABLE_SYSLOG "Enable Logger's Syslog Support" OFF)
 else()
     option(logger_ENABLE_SYSLOG "Enable Logger's Syslog Support" OFF)
 endif()

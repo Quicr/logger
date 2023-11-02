@@ -180,9 +180,7 @@ class Logger : protected SyslogInterface
                         std::chrono::seconds(1),
                         [&]() -> bool
                         {
-                            return (!busy ||
-                                    (busy && owning_thread ==
-                                                std::this_thread::get_id()));
+                            return (!busy);
                         });
 
                     if (!wait_result)
@@ -195,7 +193,7 @@ class Logger : protected SyslogInterface
                     if (!busy)
                     {
                         busy = true;
-                        owning_thread = std::this_thread::get_id();
+                        //owning_thread = std::this_thread::get_id();
                     }
                 }
 
