@@ -3,6 +3,36 @@
 The `Logger` object facilitates emitting logging output from the application
 to any number of logging sinks, including the console, file, or syslog.
 
+## Building
+
+```bash
+
+# Configure CMake
+cmake -S . -B build
+
+# Compile the library
+cmake --build build --parallel
+```
+
+## Integrating In Other Projects
+
+If using git, one may include this repository as a submodule.  Alternatively,
+the following is an example CMakeLists.txt file that can be used to include
+this library in other software package builds.
+
+```cmake
+# Enable fetching content
+include(FetchContent)
+
+# Fetch the QUICR Logger
+FetchContent_Declare(logger
+    GIT_REPOSITORY  https://github.com/Quicr/logger.git
+    GIT_TAG         main)
+
+# Make the library available
+FetchContent_MakeAvailable(logger)
+```
+
 ## Logger Usage
 
 To help with thread synchronization, the application should
