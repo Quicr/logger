@@ -172,29 +172,31 @@ class Logger : protected SyslogInterface
 
                 void thread_sync()
                 {
-                    bool wait_result;
+                    // bool wait_result;
 
-                    std::unique_lock<std::mutex> lock(buffer_mutex);
-                    wait_result = signal.wait_for(
-                        lock,
-                        std::chrono::seconds(1),
-                        [&]() -> bool
-                        {
-                            return (!busy);
-                        });
+                    // std::unique_lock<std::mutex> lock(buffer_mutex);
+                    // wait_result = signal.wait_for(
+                    //     lock,
+                    //     std::chrono::seconds(1),
+                    //     [&]() -> bool
+                    //     {
+                    //         return (!busy ||
+                    //                 (busy && owning_thread ==
+                    //                             std::this_thread::get_id()));
+                    //     });
 
-                    if (!wait_result)
-                    {
-                        logger->Log(LogLevel::Error,
-                                    "Somebody forgot to call std::flush!?");
-                        busy = false;
-                    }
+                    // if (!wait_result)
+                    // {
+                    //     logger->Log(LogLevel::Error,
+                    //                 "Somebody forgot to call std::flush!?");
+                    //     busy = false;
+                    // }
 
-                    if (!busy)
-                    {
-                        busy = true;
-                        //owning_thread = std::this_thread::get_id();
-                    }
+                    // if (!busy)
+                    // {
+                    //     busy = true;
+                    //     owning_thread = std::this_thread::get_id();
+                    // }
                 }
 
                 virtual std::streamsize xsputn(const char *c, std::streamsize n)
